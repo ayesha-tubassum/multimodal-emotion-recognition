@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Multimodal emotion recognition powered by text, voice, and facial cues.">
+  <title>AffectSense — Emotion Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+  <div class="orb orb-one"></div><div class="orb orb-two"></div>
+  <main class="shell">
+    <nav><a class="brand" href="/"><span class="brand-mark">✦</span> AffectSense</a><span class="status"><i></i> Multimodal AI</span></nav>
+    <section class="hero">
+      <p class="eyebrow">EMOTION INTELLIGENCE</p>
+      <h1>Understand the feeling<br><span>behind every signal.</span></h1>
+      <p class="lead">Fuse written language, facial expression, and vocal tone for a richer emotion prediction.</p>
+    </section>
+    <section class="workspace">
+      <div class="card form-card">
+        <div class="card-heading"><div><p class="step">01 — INPUT SIGNALS</p><h2>Analyze an emotion</h2></div><span class="secure">◈ Private session</span></div>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+          <label for="text">What was said?</label>
+          <textarea id="text" name="text" placeholder="Type or paste a short statement…" required>{{ submitted_text }}</textarea>
+          <div class="upload-grid">
+            <label class="upload" for="image"><input id="image" name="image" type="file" accept="image/*" required><span class="upload-icon">◉</span><strong>Face image</strong><small>JPG, PNG, or WEBP</small><em id="image-name">Choose a file</em></label>
+            <label class="upload" for="audio"><input id="audio" name="audio" type="file" accept="audio/wav,.wav" required><span class="upload-icon">⌁</span><strong>Voice sample</strong><small>WAV audio file</small><em id="audio-name">Choose a file</em></label>
+          </div>
+          <button type="submit"><span>Generate prediction</span><b>→</b></button>
+        </form>
+      </div>
+      <aside class="card result-card {% if prediction %}has-result{% endif %}">
+        <p class="step">02 — FUSION RESULT</p>
+        {% if prediction %}
+          <div class="result-icon">✦</div><p class="result-label">Detected emotion</p><h2>{{ prediction }}</h2>
+          <div class="confidence"><div><span>Model confidence</span><strong>{{ '%.2f'|format(confidence) }}%</strong></div><div class="meter"><span style="width: {{ confidence }}%"></span></div></div>
+          <p class="result-note">Synthesized from text, facial, and vocal features.</p>
+        {% elif error %}
+          <div class="result-icon error-icon">!</div><h2>Action needed</h2><p class="result-note error-text">{{ error }}</p>
+        {% else %}
+          <div class="empty-orbit"><span>✦</span></div><h2>Ready when you are</h2><p class="result-note">Your unified prediction will appear here after all three signals are submitted.</p>
+        {% endif %}
+      </aside>
+    </section>
+    <footer><span>TEXT</span><b>+</b><span>VISION</span><b>+</b><span>AUDIO</span><i>→</i><strong>ONE CLEAR SIGNAL</strong></footer>
+  </main>
+  <script>
+    for (const type of ['image', 'audio']) document.getElementById(type).addEventListener('change', e => {
+      document.getElementById(type + '-name').textContent = e.target.files[0]?.name || 'Choose a file';
+    });
+  </script>
+</body>
+</html>

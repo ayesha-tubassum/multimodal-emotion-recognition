@@ -1,0 +1,19 @@
+# Virtual environments
+/venv/
+/env/
+
+# Python bytecode and caches
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store
+
+# Local configuration and tooling caches
+.env
+.pytest_cache/
+.mypy_cache/
