@@ -34,11 +34,19 @@ multimodal-emotion-app/
 │   └── templates/
 │       └── index.html        # Web interface for real-time interaction
 │
+├── images/
+│   ├── evaluation.png        # Model evaluation graphs and metrics
+│   └── api_outcome.png       # API prediction outcome screenshot
+│
 ├── models/
 │   └── fusion_model.keras    # Pre-trained Keras multimodal model
 │
+├── .dockerignore             # Files to ignore during Docker build
+├── .gitignore                # Files to ignore in Git version control
 ├── Dockerfile                # Container image definition
+├── README.md                 # Project documentation
 ├── docker-compose.yml        # Docker compose configuration
+├── project NOTEBOOK...       # Jupyter notebook for model training/analysis
 └── requirements.txt          # Python package dependencies
 
 ```
